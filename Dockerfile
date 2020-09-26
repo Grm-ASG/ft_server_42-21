@@ -27,7 +27,7 @@ RUN	mv nginx.conf /etc/nginx/sites-available && rm -f /etc/nginx/sites-available
 	-keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt &&		\
 	chown -R www-data:www-data * && chmod -R 755 /var/www/*
 
-ENV	AUTOINDEX=1
+ENV	AUTOINDEX=on
 
 RUN	./init.sh && ./create_base.sh
 
