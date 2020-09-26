@@ -4,6 +4,8 @@ FROM    debian:buster
 #	Set working directory where gona download all nessary files execute commands
 WORKDIR /var/www/html
 
+ENV	AUTOINDEX=on
+
 #	Copy all nessary source configuration files from local dir "srcs" to the WORKDIR
 COPY    ./srcs/ ./
 
@@ -27,9 +29,7 @@ RUN	mv nginx.conf /etc/nginx/sites-available && rm -f /etc/nginx/sites-available
 	-keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt &&		\
 	chown -R www-data:www-data * && chmod -R 755 /var/www/*
 
-ENV	AUTOINDEX=on
-
-RUN	./init.sh && ./create_base.sh
+RUN	./init.sh && ./create_base.sh && echo "export AUTOINDEX=$AUTOINDEX" >> /root/.bashrc
 
 #	Open 80 and 443 ports for connecting to website
 EXPOSE  80 443
